@@ -51,6 +51,19 @@ public class Item implements Comparable<Item> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return id != null && id.equals(item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id == null ? 0 : id.hashCode();
+    }
+
+    @Override
     public int compareTo(Item o) {
         return this.name.compareTo(o.name);
     }

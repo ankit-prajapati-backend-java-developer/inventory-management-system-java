@@ -122,5 +122,24 @@ public class Main {
 
         System.out.println("Available (qty > 0):");
         allInventory.filterByAvailability().forEach(System.out::println);
+
+        System.out.println("--------------------------------");
+        System.out.println("Wishlist:");
+        System.out.println("--------------------------------");
+
+        Wishlist wishlist = new Wishlist();
+        wishlist.addToWishlist(e1);
+        wishlist.addToWishlist(e2);
+        wishlist.addToWishlist(e1); // duplicate same instance
+        wishlist.addToWishlist(new Electronics("E1", "Laptop", 55000, 5, 24)); // duplicate by id
+        wishlist.addToWishlist(b1);
+        wishlist.addToWishlist(new Book("B1", "Clean Code", 800, 15, "Robert Martin")); // dup by id
+
+        System.out.println("Size after duplicates (expect 3): " + wishlist.size());
+        wishlist.getWishlist().forEach(System.out::println);
+
+        wishlist.removeFromWishlist(e2);
+        System.out.println("Size after removing E2 (expect 2): " + wishlist.size());
+        wishlist.getWishlist().forEach(System.out::println);
     }
 }
