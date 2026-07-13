@@ -79,5 +79,16 @@ public class Main {
             System.out.println(item.getName());
         }
         // expect View-12 ... View-3 (newest first); View-1 and View-2 removed
+
+        System.out.println("--------------------------------");
+
+        Order order = new Order();
+        order.addOrder(new Order("O1", true));
+        order.addOrder(new Order("O2", false));
+        order.addOrder(new Order("O3", true));
+        order.processOrder();
+        System.out.println("Remaining orders: " + order.getOrderPriorityQueueSize());
+        Order next = order.getOrderPriorityQueue().peek();
+        System.out.println("Next up: " + next.getOrderId() + " express=" + next.isExpress());
     }
 }
