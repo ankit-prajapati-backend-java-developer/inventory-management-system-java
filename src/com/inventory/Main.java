@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.inventory.Comparators.PriceComparator;
+import com.inventory.Comparators.QuantityComparator;
 import com.inventory.model.Book;
 import com.inventory.model.Clothing;
 import com.inventory.model.Electronics;
@@ -90,5 +92,35 @@ public class Main {
         System.out.println("Remaining orders: " + order.getOrderPriorityQueueSize());
         Order next = order.getOrderPriorityQueue().peek();
         System.out.println("Next up: " + next.getOrderId() + " express=" + next.isExpress());
+
+        System.out.println("--------------------------------");
+        System.out.println("Sorting & Filtering:");
+        System.out.println("--------------------------------");
+
+        Inventory<Item> allInventory = new Inventory<>();
+        allInventory.addItem(e1);
+        allInventory.addItem(e2);
+        allInventory.addItem(e3);
+        allInventory.addItem(c1);
+        allInventory.addItem(c2);
+        allInventory.addItem(b1);
+        allInventory.addItem(b2);
+        allInventory.addItem(new Electronics("E4", "Out of stock cable", 200, 0, 6));
+
+        List<Item> byPrice = new ArrayList<>(allInventory.getAllItems());
+        byPrice.sort(new PriceComparator());
+        System.out.println("Sorted by price:");
+        byPrice.forEach(System.out::println);
+
+        List<Item> byQty = new ArrayList<>(allInventory.getAllItems());
+        byQty.sort(new QuantityComparator());
+        System.out.println("Sorted by quantity:");
+        byQty.forEach(System.out::println);
+
+        System.out.println("Price range 500–2000:");
+        allInventory.filterByPriceRange(500, 2000).forEach(System.out::println);
+
+        System.out.println("Available (qty > 0):");
+        allInventory.filterByAvailability().forEach(System.out::println);
     }
 }
